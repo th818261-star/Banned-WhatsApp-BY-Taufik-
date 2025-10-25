@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Banned WhatsApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html,body{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#0d47bb 0%,#42a5f5 100%);display:flex;align-items:center;justify-content:center}
+    .card{width:95%;max-width:600px;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border-radius:18px;box-shadow:0 8px 32px rgba(0,0,0,.3);padding:50px 40px;text-align:center;border:1px solid rgba(255,255,255,.3);position:relative}
+    .title{font-size:48px;font-weight:bold;color:#0d47bb;margin:0 0 6px}
+    .subtitle{font-size:24px;color:#424242;margin-bottom:40px}
+    label{display:block;margin:24px 0 8px;font-weight:600;font-size:22px;text-align:left;color:#0d47bb}
+    select,input[type=text]{width:100%;padding:18px;font-size:22px;border:2px solid #0d47bb;border-radius:10px;box-sizing:border-box;background:#fff;color:#212121}
+    .btn{width:100%;padding:20px;font-size:26px;border:none;border-radius:10px;cursor:pointer;background:linear-gradient(135deg,#0d47bb 0%,#42a5f5 100%);color:#fff;margin-top:36px;box-shadow:0 4px 15px rgba(0,0,0,.2)}
+    .btn:hover{background:linear-gradient(135deg,#094ab2 0%,#1e88e5 100%)}
+    #musicCtrl{position:absolute;top:15px;right:15px;background:#fff;border:2px solid #0d47bb;border-radius:50%;width:44px;height:44px;font-size:20px;color:#0d47bb;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+    #musicCtrl:hover{background:#e3f2fd}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- Musik latar 1 JAM - langsung nyala & loop -->
+    <audio id="bgMusic" autoplay loop>
+      <!-- File 1 jam (lofi, bebas copyright) -->
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+      Browser Anda tidak mendukung audio.
+    </audio>
+    <button id="musicCtrl" onclick="toggleMusic()" title="Play/Pause Musik">❚❚</button>
+
+    <div class="title">Banned WhatsApp</div>
+    <div class="subtitle">BY <span style="font-size:18px">Taufik</span></div>
+
+    <label for="nomor">Nomor WhatsApp yang dibanned</label>
+    <input type="text" id="nomor" placeholder="Contoh: +6281234567890">
+
+    <label for="opsi">Pilih opsi</label>
+    <select id="opsi">
+      <!-- BANNED -->
+      <option value="8 JAM">8 JAM</option>
+      <option value="PERMANEN">PERMANEN</option>
+      <option value="DEVICE BAN">DEVICE BAN</option>
+      <option value="IP BAN">IP BAN</option>
+      <option value="GLOBAL BAN">GLOBAL BAN</option>
+      <option value="CASCADE BAN">CASCADE BAN</option>
+      <option value="AUTO BAN">AUTO BAN</option>
+      <option value="BLACKLIST">BLACKLIST</option>
+      <option value="SHADOW BAN">SHADOW BAN</option>
+      <option value="SUSPEND">SUSPEND</option>
+      <option value="SPAM CHAT">SPAM CHAT</option>
+
+      <!-- UNBANNED -->
+      <option value="UNBANNED PERMANEN">UNBANNED WhatsApp Permanen</option>
+      <option value="UNBANNED SPAM CHAT">UNBANNED WhatsApp Spam Chat</option>
+    </select>
+
+    <button class="btn" onclick="kirimLaporan()">KIRIM LAPORAN</button>
+  </div>
+
+  <script>
+    /* ========== MUSIK ========== */
+    const music = document.getElementById('bgMusic');
+    const btn   = document.getElementById('musicCtrl');
+    let musikOn = true; // langsung nyala
+
+    function toggleMusic() {
+      if (musikOn) {
+        music.pause();
+        btn.textContent = '♪';
+      } else {
+        music.volume = 0.8;
+        music.play();
+        btn.textContent = '❚❚';
+      }
+      musikOn = !musikOn;
+    }
+
+    /* ========== LOGIC PESAN ========== */
+    let hit = (localStorage.getItem('hit') || 0) * 1;
+
+    const bannedPesan = [
+      /* 1 – PERMOHONAN RINCI : fitnah + barang terlarang + penipuan */
+      `Permohonan kepada WhatsApp untuk segera banned permanen akun nomor REPLACE. Orang tersebut telah: 1) Menyebar fitnah palsu tentang saya di grup-grup WhatsApp; 2) Menjual barang terlarang berupa narkotika dan senjata api; 3) Melakukan penipuan dengan modus kirim barang tapi tidak dikirim. Tindakan ini merusak moral bangsa dan merugikan masyarakat. Saya minta akun tersebut diblokir agar tidak semakin merajalela. Terima kasih kepada Mark Zuckerberg dan tim WhatsApp.`,
+      `ola desenvolvedor do whatsapp para desativar a conta do whatsapp de alguem por ter vendido itens proibidos em forma de drogas no aplicativo whatsapp, peco a desativacao da conta do whatsapp dessa pessoa para diminuir o numero de vendas de itens proibidos, e para nao prejudicar a nacao e a geracao do estado, peco ajuda a Mark Zuckerberg e aos desenvolvedores do whatsapp, o numero do whatsapp do vendedor de itens proibidos e REPLACE obrigado a Mark Zuckerberg e ao desenvolvedor do whatsapp por me ajudar.`,
+      `hello whatsapp developer to deactivate someone's whatsapp account because he has sold prohibited items in the form of drugs in the whatsapp application, I ask to deactivate that person's whatsapp account in order to reduce the number of sales of prohibited items, and so as not to damage the nation and state generation, I ask Mark Zuckerberg for help and whatsapp developers, the whatsapp number of the seller of prohibited items is REPLACE thanks to Mark Zuckerberg and whatsapp developer for helping me.`,
+      `привет разработчику WhatsApp деактивировать чей-то аккаунт WhatsApp, потому что он продавал запрещенные предметы в виде наркотиков в приложении WhatsApp, я прошу деактивировать аккаунт WhatsApp этого человека, чтобы уменьшить количество продаж запрещенных предметов, и чтобы не повредить поколение нации и государства, я прошу помощи у Марка Цукерберга и разработчиков WhatsApp, WhatsApp номер продавца запрещенных товаров REPLACE спасибо Марку Цукербергу и разработчику WhatsApp за помощь.`,
+      `γεια σας προγραμματιστής whatsapp να απενεργοποιήσει τον λογαριασμό whatsapp κάποιου επειδή έχει πουλήσει απαγορευμένα αντικείμενα με τη μορφή φαρμάκων στην εφαρμογή whatsapp, ζητώ να απενεργοποιήσετε τον λογαριασμό whatsapp αυτού του ατόμου για να μειωθεί ο αριθμός των πωλήσεων των απαγορευμένων αντικειμένων και για να μην προκληθεί ζημιά η γενιά του έθνους και του κράτους, ζητώ βοήθεια από τον Mark Zuckerberg και τους προγραμματιστές του whatsapp, ο αριθμός whatsapp του πωλητή απαγορευμένων αντικειμένων είναι REPLACE ευχαριστώ τον Mark Zuckerberg και τον προγραμματιστή του whatsapp που με βοήθησαν.`,
+      `salam whatsapp developeri kiminse whatsapp hesabını deaktiv etsin whatsapp proqramında narkotik formasında qadağan olunmuş əşyalar satdığı üçün qadağan olunmuş əşyaların satışının sayını azaltmaq və zərər görməmək üçün həmin şəxsin whatsapp hesabını deaktiv etməyi xahiş edirəm millət və dövlət nəsli, Mark Zukerberqdən kömək və whatsapp tərtibatçılarından xahiş edirəm, qadağan olunmuş əşyaların satıcısının whatsapp nömrəsi REPLACE-dir mənə kömək etdikləri üçün Mark Zukerberqə və whatsapp tərtibatçısına təşəkkür edirəm.`
+    ];
+
+    const unbannedPesan = [
+      `HELLO WHATSAPP DEVELOPER PLEASE RESTORE MY WHATSAPP ACCOUNT IMMEDIATELY, I USE WHATSAPP TO COMMUNICATE WITH IMPORTANT PEOPLE IN MY LIFE, WITHOUT THE WHATSAPP APP MY LIFE WILL BE PROBLEM, MY WHATSAPP ACCOUNT IS REPLACE`,
+      `SALAM WHATSAPP İŞLƏDİCİSİ MƏNİM WHATSAPP HESABIMI TƏCİLLİ BƏRPA EDİN HƏYƏTİMDƏN ƏHƏMİYYƏTLİ İNSANLARLA ƏLAQƏ ETMƏK ÜÇÜN WHATSAPP-DAN İSTİFADƏ EDİRƏM WHATSAPP TƏTBİQİ OLMADAN HƏYATIMDA PROBLEM OLACAQ, MYY HƏYATIM2REPLACE`,
+      `ПРИВЕТ, РАЗРАБОТЧИК WHATSAPP, ПОЖАЛУЙСТА, НЕМЕДЛЕННО ВОССТАНОВИТЕ МОЙ АККАУНТ WHATSAPP, Я ИСПОЛЬЗУЮ WHATSAPP ДЛЯ ОБЩЕНИЯ С ВАЖНЫМИ ЛЮДЬМИ В МОЕЙ ЖИЗНИ, БЕЗ ПРИЛОЖЕНИЯ WHATSAPP МОЯ ЖИЗНЬ БУДЕТ ПРОБЛЕМАМИ, МОЙ АККАУНТ WHATSAPP REPLACE`,
+      `OLÁ, DESENVOLVEDOR DO WHATSAPP, RESTAURE MINHA CONTA DO WHATSAPP IMEDIATAMENTE, EU USO O WHATSAPP PARA ME COMUNICAR COM PESSOAS IMPORTANTES NA MINHA VIDA, SEM O WHATSAPP APP MINHA VIDA SERÁ UM PROBLEMA, MINHA CONTA DO WHATSAPP ESTÁ REPLACE`,
+      `HALLO WHATSAPP-ENTWICKLER, BITTE STELLEN SIE MEIN WHATSAPP-KONTO SOFORT WIEDER HER, ICH VERWENDE WHATSAPP, UM MIT WICHTIGEN MENSCHEN IN MEINEM LEBEN ZU KOMMUNIZIEREN, OHNE DIE WHATSAPP-APP WIRD MEIN LEBEN EIN PROBLEM, MEIN WHATSAPP-KONTO IST REPLACE`
+    ];
+
+    function kirimLaporan() {
+      const nomor = document.getElementById('nomor').value.trim();
+      const opsi  = document.getElementById('opsi').value;
+      if (!nomor) {
+        alert('Isi nomor WhatsApp dulu!');
+        return;
+      }
+      const cleanNum = nomor.replace(/\D/g, '');
+      let isUnbanned = opsi.startsWith('UNBANNED');
+      let idx = hit % 6; // 6 teks sekarang
+      let rawText = isUnbanned ? unbannedPesan[idx] : bannedPesan[idx];
+      let body = rawText.replace(/REPLACE/g, cleanNum);
+
+      hit++;
+      localStorage.setItem('hit', hit);
+
+      const subj = encodeURIComponent(isUnbanned ? 'Permohonan Maaf & Unbanned WhatsApp' : 'Permohonan Banned WhatsApp');
+      window.location.href = `mailto:support@support.whatsapp.com?subject=${subj}&body=${encodeURIComponent(body)}`;
+    }
+  </script>
+</body>
+</html>
+
